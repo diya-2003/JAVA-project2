@@ -7,3 +7,6 @@ The Word Counter is a versatile tool designed to count the number of words in a 
 
 Student Management System: 
 The Student Management System is a comprehensive software solution designed to manage and organize student data in an educational institution. This GitHub repository provides an efficient implementation of the Student Management System, enabling administrators, teachers, and other stakeholders to easily handle student information.
+
+ATM Interface:
+The ATM Interface is a user-friendly software solution designed to simulate the functionality of an Automated Teller Machine (ATM). This GitHub repository provides an efficient implementation of the ATM Interface, allowing users to perform banking transactions conveniently and securely.
