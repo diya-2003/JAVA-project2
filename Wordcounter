@@ -1,0 +1,123 @@
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
+class wordc{
+    private static final Set<String> common=Set.of("the", "and", "a", "an", "in", "of", "to", "on", "for");
+    Scanner sc = new Scanner(System.in);
+    private int count=0;
+    private String text;
+    public void check(String text1)
+    {
+        text=text1;
+        try{
+        File f=new File(text);
+        if(f.isFile())
+        {
+            if(f.getName().endsWith(".txt"))
+        {
+            f();
+        }}
+        else
+        {
+            s();
+        } 
+        }catch(Exception a)
+        {
+            a.printStackTrace();
+        }
+    }
+
+    public String s()
+    {
+        int wordCount1=0;
+        String[] words = text.split("\\s+");
+        for (String word : words) 
+        {
+           wordCount1++;
+        }
+        return "The number of words is: " + wordCount1;
+    }
+
+    public String f()
+    {
+        int wordCount2=0;
+        Map<String,Integer>word=new HashMap<String,Integer>();
+        try{
+            BufferedReader r= new BufferedReader(new FileReader(text));
+            String st;
+            //StringBuilder result = new StringBuilder();
+            while((st=r.readLine())!=null)
+            {
+                 String se[] = st.replaceAll("[^\\x20-\\x7e]", "").trim().toLowerCase().split("\\s+");
+                for(String se2:se)
+                {
+                    String lWord = se2.toLowerCase().replaceAll("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$", "");
+                    if(!common.contains(lWord))
+                    {
+                        wordCount2++;
+                        if(word.containsKey(lWord))
+                        {
+                            word.put(lWord,word.get(lWord)+1);
+                        }
+                        else
+                        {
+                            word.put(lWord,1);
+                        }
+                    }
+                }
+            }
+              StringBuilder result = new StringBuilder();
+             result.append("The number of word is: ").append(wordCount2).append("\n");
+            for (Map.Entry<String, Integer> entry : word.entrySet()) {
+                result.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+            return result.toString(); 
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+         return "";
+    }
+}
+    class project2{
+    public static void main(String[] args){
+        JFrame frame = new JFrame("Word Counter");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400); 
+        frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
+        JLabel label = new JLabel("Enter text or provide the path to a file:");
+         label.setBounds(50, 20, 500, 20); 
+        JTextField inputField = new JTextField();
+        inputField.setBounds(50, 50, 500, 30);
+
+        JTextArea outputArea = new JTextArea();
+        outputArea.setBounds(50, 200, 500, 150);
+
+        JButton countButton = new JButton("Count");
+        countButton.setBounds(250, 100, 150, 30);
+        countButton.addActionListener(e -> {
+            String inputText = inputField.getText();
+            wordc a= new wordc();
+            a.check(inputText);
+            String result;
+            if(inputText.contains(".txt"))
+            {
+                result=a.f();
+            }
+            else
+            {
+                result=a.s();
+            }
+
+            outputArea.setText(result);
+        });
+
+        frame.add(label);
+        frame.add(inputField);
+        frame.add(outputArea);
+        frame.add(countButton);
+
+        frame.setVisible(true);
+    }
+}
