@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 class atm{
@@ -189,4 +188,3 @@ class project3
 		obj2.switchcase();
 	}
 }
-```
